@@ -60,4 +60,16 @@ function resolveCollision(p1, p2)
 
     p2.vel.x = p2.vel.x - sep_vel_vec.x
     p2.vel.y = p2.vel.y - sep_vel_vec.y
+
+    if math.sqrt((p1.x - p2.x)^2 + (p1.y - p2.y)^2) < p1.radius + p2.radius then
+        -- find time at which particles are no longer overlapping
+        time = (-(normal.x + normal.y) + math.sqrt((normal.x - normal.y)^2 - ((p1.vel.x - p2.vel.x)^2 + (p1.vel.y - p2.vel.y)^2) * (normal.x^2 + normal.y^2 - (p1.radius + p2.radius)^2))) / ((p1.vel.x - p2.vel.x)^2 + (p1.vel.y - p2.vel.y)^2)
+
+        -- transport particles so they are not collisioning afterwards
+        p1.x = p1.x + p1.vel.x * time
+        p1.y = p1.y + p1.vel.y * time
+
+        p2.x = p2.x + p2.vel.x * time
+        p2.y = p2.y + p2.vel.y * time
+    end
 end
