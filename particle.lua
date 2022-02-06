@@ -53,13 +53,3 @@ function Particle:draw()
     -- draw velocity vector
     love.graphics.line(self.x, self.y, self.x + self.vel.x, self.y + self.vel.y)
 end
-
-function Particle:checkCollision(p)
-    -- check collision with distance between centers
-    if math.sqrt((self.x - p.x)^2 + (self.y - p.y)^2) < self.radius + p.radius then
-        self.overlapping = true
-        p.overlapping = true
-        return true
-    end
-    return false
-end

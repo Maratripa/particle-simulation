@@ -22,7 +22,7 @@ function love.update(dt)
     -- check collision for all pairs of particles
     for i=1,#particles-1 do
         for j=i+1,#particles do
-            if particles[i]:checkCollision(particles[j]) then
+            if checkCollision(particles[i], particles[j]) then
                 resolveCollision(particles[i], particles[j])
             end
         end
@@ -72,4 +72,13 @@ function resolveCollision(p1, p2)
         p2.x = p2.x + p2.vel.x * time
         p2.y = p2.y + p2.vel.y * time
     end
+end
+
+function checkCollision(p1, p2)
+    if math.sqrt((p1.x - p2.x)^2 + (p1.y - p2.y)^2) < p1.radius + p2.radius then
+        p1.overlapping = true
+        p2.overlapping = true
+        return true
+    end
+    return false
 end
