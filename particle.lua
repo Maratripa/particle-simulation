@@ -2,17 +2,15 @@ Particle = Object:extend()
 
 function Particle:new(x, y, angle, radius)
     -- initialize particle attributes
-    local mass_density = 0.0014147106
-    local momentum = 250
 
     self.x = x
     self.y = y
     self.angle = angle
 
     self.radius = radius
-    self.mass = self.radius^2 * math.pi * mass_density
+    self.mass = self.radius^2 / 100
 
-    self.speed = momentum / self.mass
+    self.speed = 75
     self.vel = {}
     self.vel.x = self.speed * math.cos(angle)
     self.vel.y = self.speed * math.sin(angle)
