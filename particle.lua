@@ -15,6 +15,8 @@ function Particle:new(x, y, angle, radius)
     self.vel.x = self.speed * math.cos(angle)
     self.vel.y = self.speed * math.sin(angle)
 
+    self.color = random_color()
+
     -- self.overlapping = false
 end
 
@@ -49,9 +51,18 @@ function Particle:draw()
     --     love.graphics.setColor(1,1,1)
     -- end
     -- self.overlapping = false
-
+    love.graphics.setColor(self.color)
     love.graphics.circle("fill", self.x, self.y, self.radius)
     
     -- draw velocity vector
     -- love.graphics.line(self.x, self.y, self.x + self.vel.x, self.y + self.vel.y)
+end
+
+function random_color()
+    local possible_colors = {
+        {246/255, 114/255, 128/255},
+        {108/255, 86/255, 123/255},
+        {255/255, 235/255, 153/255}
+    }
+    return possible_colors[math.random(#possible_colors)]
 end
