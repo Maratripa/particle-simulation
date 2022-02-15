@@ -1,3 +1,5 @@
+local entities = require "entities"
+
 function checkCollision(p1, p2)
     if math.sqrt((p1.x - p2.x)^2 + (p1.y - p2.y)^2) < p1.radius + p2.radius then
         -- p1.overlapping = true
@@ -7,7 +9,7 @@ function checkCollision(p1, p2)
     return false
 end
 
-function resolveCollision2(p1, p2)
+function resolveCollision(p1, p2)
     local normal = {x = p1.x - p2.x, y = p1.y - p2.y}
     local distance = math.sqrt((normal.x)^2 + (normal.y)^2)
     local normal_n = {x = normal.x / distance, y = normal.y / distance}
