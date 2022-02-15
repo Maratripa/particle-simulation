@@ -1,43 +1,26 @@
 function love.load()
-    Object = require "classic"
-
-    require "particle"
-
-    -- number of particles to display
-    number = 50
-
-    -- table of particles
-    particles = {}
-
-    -- create particles with random position and angle
-    for i=1,number do
-        table.insert(particles, Particle(
-            love.math.random(20, love.graphics.getWidth()-20),
-            love.math.random(20, love.graphics.getHeight()-20),
-            love.math.random(-math.pi, math.pi),
-            15))
-    end
+    entities = require "entities"
 end
 
 function love.update(dt)
     -- check collision for all pairs of particles
-    for i=1,#particles-1 do
-        for j=i+1,#particles do
-            if checkCollision(particles[i], particles[j]) then
-                resolveCollision2(particles[i], particles[j])
+    for i=1,#entities-1 do
+        for j=i+1,#entities do
+            if checkCollision(entities[i], entities[j]) then
+                resolveCollision2(entities[i], entities[j])
             end
         end
     end
 
     -- update particles
-    for i,v in ipairs(particles) do
+    for i,v in ipairs(entities) do
         v:update(dt)
     end
 end
 
 function love.draw()
     -- draw particles
-    for i,v in ipairs(particles) do
+    for i,v in ipairs(entities) do
         v:draw()
     end
     -- love.graphics.print("Total momentum: " .. totalMomentum(), 10, 10)
@@ -75,9 +58,9 @@ end
 
 function totalMomentum()
     local counter = 0
-    for i=1,#particles do
-        local vel = math.sqrt(particles[i].vel.x^2 + particles[i].vel.y^2)
-        local mass = particles[i].mass
+    for i=1,#entities do
+        local vel = math.sqrt(entities[i].vel.x^2 + entities[i].vel.y^2)
+        local mass = entities[i].mass
         counter = counter + (vel * mass)
     end
 
