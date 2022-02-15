@@ -1,5 +1,6 @@
 function love.load()
     entities = require "entities"
+    state = require "state"
 end
 
 function love.update(dt)

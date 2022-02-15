@@ -1,3 +1,5 @@
+local state = require "state"
+
 return function(pos_x, pos_y, angle, radius)
     local entity = {}
 
@@ -11,7 +13,7 @@ return function(pos_x, pos_y, angle, radius)
     entity.vel.x = entity.speed * math.cos(angle)
     entity.vel.y = entity.speed * math.sin(angle)
 
-    --entity.color = random_color() -- TODO
+    entity.color = state.palette[love.math.random(2, #state.palette)]
 
 
     function entity:update(dt)
@@ -38,8 +40,9 @@ return function(pos_x, pos_y, angle, radius)
     end
 
     function entity:draw()
-        --love.graphics.setColor()
+        love.graphics.setColor(self.color)
         love.graphics.circle("fill", self.x, self.y, self.radius)
+        love.graphics.setColor(state.palette[1])
     end
 
     return entity
