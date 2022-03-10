@@ -1,20 +1,23 @@
 local particle = require "entities/particle"
-
-local entities = {}
+local state = require "state"
 
 local window_width = love.window.getMode() - 20
 
-local entnum = 50
-local min_radius = 15
-local max_radius = 25
+function LoadEntities()
+    local ent = {}
 
-for n=0,entnum do
-    local p_x = ((n * 60) % window_width) + 40
-    local p_y = (math.floor((n * 60) / window_width) * 100) + 80
-    local angle = love.math.random(-math.pi, math.pi)
-    local radius = math.floor(love.math.random(min_radius, max_radius))
+    local num = state.number_of_particles
+    local minrad = 15
+    local maxrad = 25
 
-    entities[#entities + 1] = particle(p_x, p_y, angle, radius)
+    for i=0,(num - 1) do
+        local px = ((i * 60) % window_width) + 40
+        local py = (math.floor((i * 60) / window_width) * 100) + 80
+        local radians = love.math.random(-math.pi, math.pi)
+        local rad = math.floor(love.math.random(minrad, maxrad))
+
+        ent[#ent + 1] = particle(px, py, radians, rad)
+    end
+
+    return ent
 end
-
-return entities
