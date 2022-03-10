@@ -20,6 +20,10 @@ function love.keypressed(k)
     if k == "escape" then
         state.paused = not state.paused
     end
+
+    if state.paused then
+        menu:ProcessKeyboard(k)
+    end
 end
 
 function love.mousepressed(x, y)

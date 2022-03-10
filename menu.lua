@@ -1,3 +1,5 @@
+local utf8 = require "utf8"
+
 local state = require "state"
 local Textbox = require "entities/textbox"
 local Button = require "entities/button"
@@ -14,13 +16,15 @@ function LoadMenu()
    menu.buttons = {
       Button((ww / 2) - 100, 50, 200, 100, "SIMULATE",
       function()
-         state.number_of_particles = tonumber(menu.textboxes[1].text)
+         if tonumber(menu.textboxes[1].text) ~= nil then
+            state.number_of_particles = tonumber(menu.textboxes[1].text)
+         end
+         
          love.load()
       end)
    }
 
-   function menu.update()
-      ww, wh = love.window.getMode()
+   function menu:update()
    end
 
    function menu:draw()
@@ -65,5 +69,16 @@ function LoadMenu()
       end
    end
 
+   function menu:ProcessKeyboard(k)
+      if k == "backspace" then
+         for i,v in ipairs(self.textboxes) do
+            local byteoffset = utf8.offset(v.text, -1)
+            if byteoffset then
+               v.text = string.sub(v.text, 1, byteoffset - 1)
+            end
+         end
+      end
+   end
+   
    return menu
 end
