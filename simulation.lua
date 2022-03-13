@@ -3,6 +3,7 @@ require "physics"
 require "entities"
 
 function LoadSimulation()
+    -- Used for resetting simulation
     local entities = LoadEntities()
 
     local sim = {}

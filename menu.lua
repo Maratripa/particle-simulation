@@ -7,12 +7,15 @@ local Button = require "entities/button"
 local ww, wh = love.window.getMode()
 
 function LoadMenu()
+   -- Menu table
    local menu = {}
 
+   -- Code requires this textbox to be the first one
    menu.textboxes = {
       Textbox((ww / 2) - 100, 200, 200, 100, "PARTICLE NUMBER:")
    }
 
+   -- Buttons table, anonymous functions for buttons
    menu.buttons = {
       Button((ww / 2) - 100, 50, 200, 100, "SIMULATE",
       function()
@@ -27,6 +30,7 @@ function LoadMenu()
    function menu:update()
    end
 
+   -- Draw menu objects
    function menu:draw()
       for i,v in ipairs(self.buttons) do
          v:draw()
@@ -37,7 +41,9 @@ function LoadMenu()
       end
    end
 
+   
    function menu:ProcessMouse(x, y)
+      -- Check mouse click on buttons
       for i,v in ipairs(self.buttons) do
          if x >= v.x and
             x <= v.x + v.width and
@@ -46,8 +52,9 @@ function LoadMenu()
          then
             v.callback()
          end
-   end
+      end
 
+      -- Change active state for textboxes
       for i,v in ipairs(self.textboxes) do
          if x >= v.x and
             x <= v.x + v.width and
@@ -61,6 +68,7 @@ function LoadMenu()
       end
    end
 
+   -- Update text on textboxes
    function menu:processTextInput(t)
       for i,v in ipairs(self.textboxes) do
          if v.active then
@@ -69,6 +77,7 @@ function LoadMenu()
       end
    end
 
+   -- Backspace
    function menu:ProcessKeyboard(k)
       if k == "backspace" then
          for i,v in ipairs(self.textboxes) do
