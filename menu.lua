@@ -10,7 +10,7 @@ function LoadMenu()
    local menu = {}
 
    menu.textboxes = {
-      Textbox((ww / 2) - 100, 200, 200, 100, "Numero de particulas:")
+      Textbox((ww / 2) - 100, 200, 200, 100, "PARTICLE NUMBER:")
    }
 
    menu.buttons = {
